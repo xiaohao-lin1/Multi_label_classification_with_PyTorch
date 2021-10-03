@@ -1,0 +1,11 @@
+TODO:1. Go through the jupyter notebook and list down all the imporatnt steps and files and functions that I need to create
+Key steps
+TODO: 1. load the data, read teh website on how everything works
+TODO: 2. label mapping
+TODO: 3 build and train the classifer, sequential model
+TODO: 4. test the network
+TODO: 5 save the check pt and load it
+TODO: 6 (optional) infernce
+TODO:
+TODO:
+
