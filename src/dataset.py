@@ -45,13 +45,6 @@ def load_data(batchsize=64):
     # data[0].mean(), data[0].std()
     # data = next(iter(loader))
     # (tensor(0.2860), tensor(0.3530))
-    #
-
-    # testing_transforms = transforms.Compose([transforms.Resize(256),
-    #                                          transforms.CenterCrop(224),
-    #                                          transforms.ToTensor(),
-    #                                          transforms.Normalize([0.485, 0.456, 0.406],
-    #                                                               [0.229, 0.224, 0.225])])
 
     # TODO: Load the datasets with ImageFolder
     training_dataset = datasets.ImageFolder(train_dir, transform=training_transforms)
