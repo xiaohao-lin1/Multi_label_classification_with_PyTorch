@@ -14,18 +14,6 @@ import os
 #TODO: check the batchsize
 
 
-def data_directory():
-    '''
-
-    :param data_dir:
-    :return: train_dir, valid_dir, test_dir
-    '''
-    img_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs\img'))
-    # split_path =
-    train_dir = '{0}\Train'.format(img_path)
-    valid_dir = img_path + '\Val'
-    return train_dir, valid_dir
-
 
 def load_data(batchsize=64):
     '''
@@ -33,7 +21,10 @@ def load_data(batchsize=64):
     :param data_dir: data directory path
     :return: train_loader, val_loader, test_loader in PyTorch Loader format
     '''
-    train_dir, valid_dir = data_directory()
+    img_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs\img'))
+
+    train_dir = '{0}\Train'.format(img_path)
+    valid_dir = img_path + '\Val'
 
     # Define transforms for the training, validation, and testing sets
     training_transforms = transforms.Compose([transforms.RandomRotation(30),
@@ -68,8 +59,24 @@ def load_data(batchsize=64):
     # testing_dataset = datasets.ImageFolder(test_dir, transform=testing_transforms)
 
     # TODO: Using the image datasets and the trainforms, define the dataloaders
-    train_loader = torch.utils.data.DataLoader(training_dataset, batch_size=batchsize, shuffle=True)
-    validate_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=batchsize)
+    train_loader = torch.utils.data.DataLoader(training_dataset, batch_size=batchsize, shuffle=True, num_workers=1)
+    validate_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=batchsize, num_workers=1)
     # test_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=batchsize)
 
     return train_loader, validate_loader #,test_loader
+
+def get_y(data):
+    '''
+
+    :param data: a string that is either 'train' or 'val'
+    :return: attr: the list of label y
+    '''
+    spl_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs\split'))
+    if data == 'train':
+        with open(spl_path+'\\train_attr.txt', 'r') as f:
+            attr = f.read()
+    elif data == 'val':
+        with open(spl_path+'\\val_attr.txt', 'r') as f:
+            attr = f.read()
+    return attr
+
