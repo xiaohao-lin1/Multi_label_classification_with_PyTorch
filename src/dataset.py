@@ -12,8 +12,6 @@ from torchvision import datasets, transforms, models
 import os
 
 #TODO: check the batchsize
-#TODO: get the data_dir
-#TODO:
 
 
 def data_directory():
@@ -50,6 +48,13 @@ def load_data(batchsize=64):
                                                 transforms.ToTensor(),
                                                 transforms.Normalize([0.485, 0.456, 0.406],
                                                                      [0.229, 0.224, 0.225])])
+
+    #TODO: this is how you should get the mean and sd.
+    # loader = DataLoader(train_set, batch_size=len(train_set), num_workers=1)
+    # data[0].mean(), data[0].std()
+    # data = next(iter(loader))
+    # (tensor(0.2860), tensor(0.3530))
+    #
 
     # testing_transforms = transforms.Compose([transforms.Resize(256),
     #                                          transforms.CenterCrop(224),
