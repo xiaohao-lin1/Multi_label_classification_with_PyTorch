@@ -14,7 +14,7 @@ warnings.filterwarnings("ignore")
 
 plt.ion()
 
-spl_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs\split\\Train.txt'))
+spl_path = os.path.abspath(os.path.join(os.getcwd(), '', 'inputs\split\\Train.txt'))
 print(spl_path)
 
 landmarks_frame = pd.read_csv(spl_path+'\\Train.txt')

@@ -28,8 +28,8 @@ warnings.filterwarnings("ignore")
 #custom dataset https://www.youtube.com/watch?v=ZoZHd0Zm3RY
 
 plt.ion()   # interactive mode
-img_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs\img'))
-spl_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs\split'))
+img_path = os.path.abspath(os.path.join(os.getcwd(), '', 'inputs\img'))
+spl_path = os.path.abspath(os.path.join(os.getcwd(), '', 'inputs\split'))
 train_lm = spl_path + '\\train_landmarks.txt'
 val_lm = spl_path + '\\val_landmarks.txt'
 # landmarks_frame = pd.read_csv(r'C:\Users\SCSE-CIL\PycharmProjects\fashion_attribute\inputs\split\train_landmarks.txt')
@@ -142,7 +142,7 @@ def get_y(data_type='Train', suffix=''):
     :param data: a string that is either 'train' or 'val'
     :return: attr: the list of label y
     '''
-    spl_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'inputs/split'))
+    spl_path = os.path.abspath(os.path.join(os.getcwd(), '', 'inputs/split'))
     if data_type == 'Train':
         trial = spl_path+'\Train'+suffix+'.txt'
         print('trial', trial)
