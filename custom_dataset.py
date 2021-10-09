@@ -46,11 +46,14 @@ class DeepFashionDataset(Dataset):
     def __getitem__(self, index):
         # TODO: debug the IMG_PATH
         img_path = self.root / str(self.x_file.iloc[index])
+        print('img_path', img_path)
         image = io.imread(img_path)
         y_label = torch.tensor(int(self.y_file.iloc[index]))
 
         if self.transform:
             image = self.transform(image)
+        print('image', image)
+        print('y_label', y_label)
         return image, y_label
 
     #def __repr__(self):
