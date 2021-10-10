@@ -70,6 +70,7 @@ class Fashion_attr_prediction(data.Dataset):
 
         train_attr = self.read_digit_lines(train_attr_file)
         val_attr = self.read_digit_lines(val_attr_file)
+
         for i in range (len(train_name)):
             name = train_name[i][0]
             tmp_attr = train_attr[i]
