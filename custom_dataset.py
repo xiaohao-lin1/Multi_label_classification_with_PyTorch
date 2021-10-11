@@ -1,4 +1,6 @@
 import os
+
+import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
@@ -14,7 +16,8 @@ inputs_path ={
     'val_x': Path.cwd()/'inputs'/'split'/'val.txt',
 
     'train_y': Path.cwd() / 'inputs' / 'split' / 'train_attr.txt',
-    'val_y': Path.cwd() / 'inputs' / 'split' / 'val_attr.txt'
+    'val_y': Path.cwd() / 'inputs' / 'split' / 'val_attr.txt',
+
 }
 
 outputs_path = {
@@ -32,6 +35,7 @@ outputs_path = {
 class DeepFashionDataset(Dataset):
     def __init__(self, x_file, y_file, root, transform=None, landmarks=None, bbox=None):
         #annotations is for the y label
+        #use numpy to load the fil
         self.x_file = pd.read_csv(x_file)
         self.y_file = pd.read_csv(y_file)
         #root should be /inputs/
@@ -56,6 +60,35 @@ class DeepFashionDataset(Dataset):
         print('y_label', y_label)
         return image, y_label
 
+    def load_data(self):
+
+
+    def read_img_txt_file(self, filepath):
+        '''
+        :param filepath:
+        :return: a list of strings
+        '''
+        with open(filepath, 'r') as reader:
+            lines = reader.read().strip().split()
+        #todo: convert to numpy format
+        return lines
+
+    def read_digit_lines(self, path):
+        '''
+            read attr, bbox, and landmarks files
+        :param path:
+        :return: a list of lists, can
+        '''
+        #todo: convert to numpy format
+        with open(path) as file:
+            lines = file.readlines()
+            lines = list(filter(lambda x: len(x) > 0, lines))
+            lines = list(map(lambda x: (x.strip().split()), lines))
+            for i in range(len(lines)):
+                lines[i] = list(map(int, lines[i]))
+            #lines = np.array(lines)
+        return lines
+
     #def __repr__(self):
 
 #TODO: debug the root
@@ -65,3 +98,7 @@ train_data = DeepFashionDataset(
     root = inputs_path['inputs']
 )
 print(train_data[0])
+
+
+
+

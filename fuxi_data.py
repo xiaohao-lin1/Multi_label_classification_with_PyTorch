@@ -45,17 +45,18 @@ class Fashion_attr_prediction(data.Dataset):
         else:
             return 1
     def transform_attr(self):
+        #img files
         train_name_file = os.path.join(DATASET_BASE, r'split', r'train.txt')
         val_name_file = os.path.join(DATASET_BASE, r'split', r'val.txt')
         test_name_file = os.path.join(DATASET_BASE, r'split', r'test.txt')
-
+        #y label files
         train_attr_file = os.path.join(DATASET_BASE, r'split', r'train_attr.txt')
         val_attr_file = os.path.join(DATASET_BASE, r'split', r'val_attr.txt')
 
         train_bbox_file = os.path.join(DATASET_BASE, r'split', r'train_bbox.txt')
         val_bbox_file = os.path.join(DATASET_BASE, r'split', r'val_bbox.txt')
         test_bbox_file = os.path.join(DATASET_BASE, r'split', r'test_bbox.txt')
-
+        #get a list of lists of image names
         train_name = self.read_char_lines(train_name_file)
         val_name = self.read_char_lines(val_name_file)
         self.train_list = self.train_list + train_name
@@ -63,7 +64,7 @@ class Fashion_attr_prediction(data.Dataset):
         test_name = self.read_char_lines(test_name_file)
         self.test_list = self.test_list + test_name
         self.all_list = self.train_list + self.val_list + self.test_list
-
+        #bbox files are read the same way as attr files
         train_bbox = self.read_digit_lines(train_bbox_file)
         val_bbox = self.read_digit_lines(val_bbox_file)
         test_bbox = self.read_digit_lines(test_bbox_file)
