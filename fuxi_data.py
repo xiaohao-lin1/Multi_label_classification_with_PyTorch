@@ -9,7 +9,7 @@ import random
 
 
 class Fashion_attr_prediction(data.Dataset):
-    def __init__(self, type="train", transform = None, img_path=None,  crop=True):
+    def __init__(self, type="train", transform=None, img_path=None, crop=True):
         self.transform = transform
         # self.target_transform = target_transform
         self.crop = crop
@@ -27,11 +27,6 @@ class Fashion_attr_prediction(data.Dataset):
         self.attr = dict()
         self.anno = dict()
         self.transform_attr()
-        # self.read_digit_lines()
-        # self.read_char_lines()
-        # self.read_crop()
-        # self.read_partition_category()
-        # self.read_bbox()
 
     def __len__(self):
         if self.type == "all":
@@ -44,27 +39,30 @@ class Fashion_attr_prediction(data.Dataset):
             return len(self.test_list)
         else:
             return 1
+
     def transform_attr(self):
-        #img files
+        # img files
         train_name_file = os.path.join(DATASET_BASE, r'split', r'train.txt')
         val_name_file = os.path.join(DATASET_BASE, r'split', r'val.txt')
         test_name_file = os.path.join(DATASET_BASE, r'split', r'test.txt')
-        #y label files
-        train_attr_file = os.path.join(DATASET_BASE, r'split', r'train_attr.txt')
+        # y label files
+        train_attr_file = os.path.join(
+            DATASET_BASE, r'split', r'train_attr.txt')
         val_attr_file = os.path.join(DATASET_BASE, r'split', r'val_attr.txt')
 
-        train_bbox_file = os.path.join(DATASET_BASE, r'split', r'train_bbox.txt')
+        train_bbox_file = os.path.join(
+            DATASET_BASE, r'split', r'train_bbox.txt')
         val_bbox_file = os.path.join(DATASET_BASE, r'split', r'val_bbox.txt')
         test_bbox_file = os.path.join(DATASET_BASE, r'split', r'test_bbox.txt')
-        #get a list of lists of image names
+        # get a list of lists of image names
         train_name = self.read_char_lines(train_name_file)
         val_name = self.read_char_lines(val_name_file)
         self.train_list = self.train_list + train_name
-        self.val_list = self.val_list +val_name
+        self.val_list = self.val_list + val_name
         test_name = self.read_char_lines(test_name_file)
         self.test_list = self.test_list + test_name
         self.all_list = self.train_list + self.val_list + self.test_list
-        #bbox files are read the same way as attr files
+        # bbox files are read the same way as attr files
         train_bbox = self.read_digit_lines(train_bbox_file)
         val_bbox = self.read_digit_lines(val_bbox_file)
         test_bbox = self.read_digit_lines(test_bbox_file)
@@ -72,7 +70,7 @@ class Fashion_attr_prediction(data.Dataset):
         train_attr = self.read_digit_lines(train_attr_file)
         val_attr = self.read_digit_lines(val_attr_file)
 
-        for i in range (len(train_name)):
+        for i in range(len(train_name)):
             name = train_name[i][0]
             tmp_attr = train_attr[i]
             tmp_attr = torch.tensor(tmp_attr)
@@ -88,7 +86,7 @@ class Fashion_attr_prediction(data.Dataset):
             # attr = torch.tensor(attr)
             # self.attr[name] = attr
             self.attr[name] = tmp_attr
-        for i in range (len(val_name)):
+        for i in range(len(val_name)):
             name = val_name[i][0]
             tmp_attr = val_attr[i]
 
@@ -105,10 +103,9 @@ class Fashion_attr_prediction(data.Dataset):
             # attr = torch.tensor(attr)
             # self.attr[name] = attr
             self.attr[name] = tmp_attr
-        for i in range (len(test_name)):
+        for i in range(len(test_name)):
             name = test_name[i][0]
             self.bbox[name] = test_bbox[i]
-
 
     def read_digit_lines(self, path):
         with open(path) as file:
@@ -140,7 +137,6 @@ class Fashion_attr_prediction(data.Dataset):
 
     def __getitem__(self, index):
 
-
         if self.type == "single":
             img_path = self.img_path
             img = self.read_crop(img_path)
@@ -149,7 +145,7 @@ class Fashion_attr_prediction(data.Dataset):
             return img,
         if self.type == "all":
             img_path = self.all_list[index][0]
-        elif self.type == "train" :
+        elif self.type == "train":
             img_path = self.train_list[index][0]
             attr = self.attr[img_path]
         elif self.type == "val":
@@ -160,7 +156,6 @@ class Fashion_attr_prediction(data.Dataset):
             img_path = self.test_list[index][0]
         # target = self.attr[img_path]
         img = self.read_crop(img_path)
-
 
         if self.transform is not None:
             img = self.transform(img)
